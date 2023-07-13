@@ -1,12 +1,25 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using TaskManager;
 
 var builder = WebApplication.CreateBuilder(args);
 
+/////// ------------------------------------------------------------------- Filtro politica de usuarios autenticados
+/// Esta politica se la pasamos al servicio encargado de controlar la app
+/// y quiere decir que para utilizar la app debe estar autentificado.
+var politicaUsuariosAutenticados = new AuthorizationPolicyBuilder()
+    .RequireAuthenticatedUser()
+    .Build();
+
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(opciones =>
+{
+    opciones.Filters.Add(new AuthorizeFilter(politicaUsuariosAutenticados)); 
+});
 
 /////// --------------------------------------------------------------- Servicios
 ///
@@ -30,7 +43,7 @@ builder.Services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.Ap
     opciones =>
     {
         opciones.LoginPath = "/Usuarios/Login";
-        opciones.AccessDeniedPath = "Usuarios/Login";
+        opciones.AccessDeniedPath = "/Usuarios/Login";
     });
 
 var app = builder.Build();
