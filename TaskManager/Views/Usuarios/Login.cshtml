@@ -1,0 +1,47 @@
+﻿@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+
+<div class="card">
+    <div class="card-body">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <form asp-action="Login" asp-controller="Usuarios">
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span class="text-danger" asp-validation-for="Password"></span>
+            </div>
+            
+            <div class="mb-3">
+                <label asp-for="Recuerdame" class="form-label"></label>
+                <input asp-for="Recuerdame" class="form-check-input" />
+            </div>
+
+            <button class="btn btn-primary" type="submit">
+                Loguear
+            </button>
+            
+            <a class="btn btn-success" asp-action="Registro" asp-controller="Usuarios">
+                Crear una nueva cuenta
+            </a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @*Utiliza el parcial de validacion con Js por defecto y este se encuentra
+        en Views/Shared/_ValidationScriptsPartial.cshtml
+    *@
+    <partial name="_ValidationScriptsPartial" />
+}

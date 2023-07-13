@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.Models;
@@ -18,6 +19,7 @@ namespace TaskManager.Controllers
             this.signInManager = signInManager;
         }
 
+        [HttpGet]
         [AllowAnonymous]
         public IActionResult Registro()
         {
@@ -28,7 +30,7 @@ namespace TaskManager.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Registro(RegistroViewModel modeloRegistro)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(modeloRegistro);
             }
@@ -49,9 +51,10 @@ namespace TaskManager.Controllers
                 await signInManager.SignInAsync(usuario, isPersistent: true);
                 return RedirectToAction("Index", "Home");
 
-            } else
+            }
+            else
             {
-                foreach( var error in resultado.Errors)
+                foreach (var error in resultado.Errors)
                 {
                     // Agrega los errores al modelo
                     ModelState.AddModelError(string.Empty, error.Description);
@@ -60,5 +63,51 @@ namespace TaskManager.Controllers
                 return View(modeloRegistro);
             }
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(LoginViewModel modeloRegistro)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(modeloRegistro);
+            }
+
+            // PasswordSignInAsync: intenta loguear con una combinacion de username y password 
+            var resultadoLogueo = await signInManager.PasswordSignInAsync(
+                modeloRegistro.Email,
+                modeloRegistro.Password,
+                isPersistent: true,
+                lockoutOnFailure: false);
+
+            if (resultadoLogueo.Succeeded)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Email o Password incorrecto.");
+                return View(modeloRegistro);
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
+
+// SignInManager trae propiedades y metodos propios tales como para
+// login como: PasswordSignInAsync()
+// Al parecer es mas facil usar el HttpContext.SignOutAsync() para desloguear;
