@@ -9,6 +9,9 @@ C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\TaskManage
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Azure.Core.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Azure.Identity.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Humanizer.dll
+C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Microsoft.Data.SqlClient.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.dll
@@ -17,6 +20,9 @@ C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Microsoft.
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
+C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Microsoft.Extensions.Identity.Core.dll
+C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Microsoft.Extensions.Identity.Stores.dll
+C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Microsoft.Identity.Client.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Microsoft.Identity.Client.Extensions.Msal.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
