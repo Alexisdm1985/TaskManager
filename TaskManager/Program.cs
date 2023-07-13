@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using TaskManager;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// ///// CONFIGURACION SERVICIO DBCONTEXT EF CORE 7 /////
+builder.Services.AddDbContext<ApplicationDbContext>(opciones => opciones.UseSqlServer("name = DefaultConnection"));
 
 var app = builder.Build();
 
