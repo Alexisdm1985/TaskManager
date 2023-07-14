@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TaskManager.Models;
+using TaskManager.Servicios;
 
 namespace TaskManager.Controllers
 {
@@ -17,7 +18,7 @@ namespace TaskManager.Controllers
         // IdentityUser es la clase para Usuarios configurada en programs.cs
         // Si tuviera otra clase para usuarios iria aqui luego de UserManager
         public UsuariosController(
-            UserManager<IdentityUser> userManager, 
+            UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ApplicationDbContext dbContext)
         {
@@ -218,17 +219,53 @@ namespace TaskManager.Controllers
         {
             // Obtiene los usuarios usando Identity
             var usuarios = await dbContext.Users
-                .Select( usuario => new UsuarioViewModel
+                .Select(usuario => new UsuarioViewModel
                 {
                     Email = usuario.Email
                 }).ToListAsync();
 
             var modeloListadoUsuarios = new ListadoUsuariosViewModel();
-            
+
             modeloListadoUsuarios.Usuarios = usuarios;
             modeloListadoUsuarios.Mensaje = mensaje;
 
             return View(modeloListadoUsuarios);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AsignarAdminRol(string email)
+        {
+            var usuario = await dbContext.Users.Where(usuario => usuario.Email == email).FirstOrDefaultAsync();
+
+            if (usuario is null)
+            {
+                return NotFound();
+            }
+
+            await userManager.AddToRoleAsync(usuario, Constantes.ROL_ADMIN);
+
+            string mensaje = $"Rol Administrador asignado correctamente al usuario: {email}";
+            //string mensaje = $"Rol Administrador asignado correctamente al usuario: {usuario.Result.UserName}";
+
+            return RedirectToAction("ListadoUsuarios", routeValues: new { mensaje });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoverAdminRol(string email)
+        {
+            var usuario = await dbContext.Users.Where(usuario => usuario.Email == email).FirstOrDefaultAsync();
+
+            if (usuario is null)
+            {
+                return NotFound();
+            }
+
+            await userManager.RemoveFromRoleAsync(usuario, Constantes.ROL_ADMIN);
+
+            string mensaje = $"Rol Administrador eliminado correctamente al usuario: {email}";
+            //string mensaje = $"Rol Administrador asignado correctamente al usuario: {usuario.Result.UserName}";
+
+            return RedirectToAction("ListadoUsuarios", routeValues: new { mensaje });
         }
     }
 }
