@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Security;
 using System.Security.Claims;
 using TaskManager.Models;
 using TaskManager.Servicios;
@@ -215,6 +217,7 @@ namespace TaskManager.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = Constantes.ROL_ADMIN)]
         public async Task<IActionResult> ListadoUsuarios(string mensaje = null)
         {
             // Obtiene los usuarios usando Identity
@@ -233,6 +236,7 @@ namespace TaskManager.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Constantes.ROL_ADMIN)]
         public async Task<IActionResult> AsignarAdminRol(string email)
         {
             var usuario = await dbContext.Users.Where(usuario => usuario.Email == email).FirstOrDefaultAsync();
@@ -251,6 +255,7 @@ namespace TaskManager.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Constantes.ROL_ADMIN)]
         public async Task<IActionResult> RemoverAdminRol(string email)
         {
             var usuario = await dbContext.Users.Where(usuario => usuario.Email == email).FirstOrDefaultAsync();
