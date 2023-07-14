@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TaskManager.Models;
 
@@ -11,13 +12,18 @@ namespace TaskManager.Controllers
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
+        private readonly ApplicationDbContext dbContext;
 
         // IdentityUser es la clase para Usuarios configurada en programs.cs
         // Si tuviera otra clase para usuarios iria aqui luego de UserManager
-        public UsuariosController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public UsuariosController(
+            UserManager<IdentityUser> userManager, 
+            SignInManager<IdentityUser> signInManager,
+            ApplicationDbContext dbContext)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.dbContext = dbContext;
         }
 
         [HttpGet]
@@ -205,7 +211,25 @@ namespace TaskManager.Controllers
             // Procede a loguear
             await signInManager.SignInAsync(usuario, isPersistent: true, loginInfo.LoginProvider);
             return LocalRedirect(urlRetorno);
-        }   
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ListadoUsuarios(string mensaje = null)
+        {
+            // Obtiene los usuarios usando Identity
+            var usuarios = await dbContext.Users
+                .Select( usuario => new UsuarioViewModel
+                {
+                    Email = usuario.Email
+                }).ToListAsync();
+
+            var modeloListadoUsuarios = new ListadoUsuariosViewModel();
+            
+            modeloListadoUsuarios.Usuarios = usuarios;
+            modeloListadoUsuarios.Mensaje = mensaje;
+
+            return View(modeloListadoUsuarios);
+        }
     }
 }
 
@@ -220,3 +244,7 @@ namespace TaskManager.Controllers
 /// Crear un "secreto" en Azure certificates and secrets y nos copiamos el valor (no el secret id)
 /// Microsoft dispone de un Framework para OAuth2, por lo que instalamos "AspNetCore.Authentication.MicrosoftAccount" con NuGet.
 /// https://www.udemy.com/course/aprende-aspnet-core-mvc-haciendo-proyectos-desde-cero/learn/lecture/34630098#overview
+/// 
+
+// En ListadoUsuarios() se obtienen los usuarios con identity pero como solo necesitabamos
+// el email, ocupamos Select() para obtener solo el email.
