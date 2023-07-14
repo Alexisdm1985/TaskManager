@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using TaskManager.Models;
 
 namespace TaskManager.Controllers
@@ -66,8 +67,13 @@ namespace TaskManager.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login()
+        public IActionResult Login(string mensajeError = null)
         {
+            if (mensajeError != null)
+            {
+                ViewData["mensajeError"] = mensajeError;
+            }
+
             return View();
         }
 
@@ -105,9 +111,105 @@ namespace TaskManager.Controllers
             await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ChallengeResult LoginExterno(string proveedor, string urlRetorno = null)
+        {
+            // Luego de la autentificacion regresa a este URL
+            var urlRedireccion = Url.Action("RegistrarUsuarioExterno",
+                values: new { urlRetorno });
+
+            var externalAuthProperties = signInManager
+                .ConfigureExternalAuthenticationProperties(proveedor, urlRedireccion);
+
+            return new ChallengeResult(proveedor, externalAuthProperties);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> RegistrarUsuarioExterno(string urlRetorno = null,
+            string remoteError = null)
+        {
+            /////-----------------------------------------------------------------------------
+            /// SECCION VALIDACIONES:
+            /// si trae error y si es posible obtener la informacion de login
+
+            var mensajeVista = "";
+
+            // Si SignInManager da error al autentificar con el proveedor
+            if (remoteError is not null)
+            {
+                mensajeVista = $"Error del proveedor externo: {remoteError}";
+                return RedirectToAction("Login", routeValues: new { mensajeVista });
+            }
+
+            var loginInfo = await signInManager.GetExternalLoginInfoAsync();
+            if (loginInfo is null)
+            {
+                mensajeVista = "Error cargando la data de login externo";
+                return RedirectToAction("Login", routeValues: new { mensajeVista });
+            }
+
+            //// -----------------------------------------------------------------------------
+            /// SECCION LOGUEO
+            /// Ahora con las credenciales en "loginInfo", intentamos loguear al usuario externamente
+            /// en el caso de que ya existiese en nuestra DB, si no, entonces se crea como nuevo usuario.
+
+            urlRetorno = urlRetorno ?? Url.Content("~/");
+
+            var resultadoLoginExerno = await signInManager.ExternalLoginSignInAsync(
+                loginInfo.LoginProvider,
+                loginInfo.ProviderKey,
+                isPersistent: true,
+                bypassTwoFactor: true);
+
+            // Si el Login es exitoso
+            if (resultadoLoginExerno.Succeeded)
+            {
+                return LocalRedirect(urlRetorno);
+            }
+
+            //// -------------------------------------------------------------
+            /// SECCION REGISTRO USUARIO
+
+            bool loginInfoHasEmailClaim = loginInfo.Principal.HasClaim(claim => claim.Type == ClaimTypes.Email) ? true : false;
+            if (!loginInfoHasEmailClaim)
+            {
+                mensajeVista = "Error leyendo el Email del usuario del proveedor";
+                return RedirectToAction("Login", routeValues: new { mensajeVista });
+            }
+
+            var email = loginInfo.Principal.FindFirstValue(ClaimTypes.Email);
+            var usuario = new IdentityUser { Email = email, UserName = email };
+
+            var resultadoCreacionUsuario = await userManager.CreateAsync(usuario);
+
+            if (!resultadoCreacionUsuario.Succeeded)
+            {
+                mensajeVista = resultadoCreacionUsuario.Errors.First().Description;
+                return RedirectToAction("Login", routeValues: new { mensajeVista });
+            }
+
+            // Una vez creado el usuario, se agrega un login externo al usuario
+            // guardando la informacion del proveedor en nuestra DB, para
+            // loguear al nuevo usuario usando el proveedor externo como autenticacion en nuestra app.
+            var resultadoAgregarLogin = await userManager.AddLoginAsync(usuario, loginInfo);
+
+            if (!resultadoAgregarLogin.Succeeded)
+            {
+                mensajeVista = $"Ha ocurrido un error agregando el Login Externo: {resultadoAgregarLogin.Errors.First().Description}";
+                return RedirectToAction("Login", routeValues: new { mensajeVista });
+            }
+
+            // Procede a loguear
+            await signInManager.SignInAsync(usuario, isPersistent: true, loginInfo.LoginProvider);
+            return LocalRedirect(urlRetorno);
+        }   
     }
 }
 
 // SignInManager trae propiedades y metodos propios tales como para
 // login como: PasswordSignInAsync()
 // Al parecer es mas facil usar el HttpContext.SignOutAsync() para desloguear;
+// Claims, contienen credenciales de usuarios o applicaciones externas y viene en System.Security.Claims;

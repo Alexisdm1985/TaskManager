@@ -6,6 +6,13 @@
 
 <h1>Login</h1>
 
+@if (ViewData.Keys.Contains("mensajeError"))
+{
+    <p style="color: red;">
+        @ViewData["mensajeError"]
+    </p>
+}
+
 <div class="card">
     <div class="card-body">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
