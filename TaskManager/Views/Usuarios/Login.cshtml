@@ -42,6 +42,14 @@
             <a class="btn btn-success" asp-action="Registro" asp-controller="Usuarios">
                 Crear una nueva cuenta
             </a>
+
+
+            <a class="btn btn-dark"
+               asp-controller="Usuarios"
+               asp-action="LoginExterno"
+               asp-route-proveedor="Microsoft">
+                Continuar con Microsoft
+            </a>
         </form>
     </div>
 </div>

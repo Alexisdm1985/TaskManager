@@ -213,3 +213,10 @@ namespace TaskManager.Controllers
 // login como: PasswordSignInAsync()
 // Al parecer es mas facil usar el HttpContext.SignOutAsync() para desloguear;
 // Claims, contienen credenciales de usuarios o applicaciones externas y viene en System.Security.Claims;
+
+//// --- Conexion cuenta externa Microsoft (Azure)
+/// Registrar nuestra app en Azure = https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
+/// Copiar el client Id que nos da Azure (Application (client) ID)
+/// Crear un "secreto" en Azure certificates and secrets y nos copiamos el valor (no el secret id)
+/// Microsoft dispone de un Framework para OAuth2, por lo que instalamos "AspNetCore.Authentication.MicrosoftAccount" con NuGet.
+/// https://www.udemy.com/course/aprende-aspnet-core-mvc-haciendo-proyectos-desde-cero/learn/lecture/34630098#overview

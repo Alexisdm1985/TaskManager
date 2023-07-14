@@ -27,7 +27,12 @@ builder.Services.AddControllersWithViews(opciones =>
 builder.Services.AddDbContext<ApplicationDbContext>(opciones => opciones.UseSqlServer("name = DefaultConnection"));
 
 // Activacion de servicios de autenticacion
-builder.Services.AddAuthentication();
+// Agrega una autenticacion externa, en este caso de Microsoft
+builder.Services.AddAuthentication().AddMicrosoftAccount(opciones =>
+{
+    opciones.ClientId = builder.Configuration["MicrosoftClientId"];
+    opciones.ClientSecret = builder.Configuration["MicrosoftSecretId"];
+});
 
 // Activacion servicio para usar Identity (debe estar activo el servicio de autenticacion de arriba)
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(opciones =>

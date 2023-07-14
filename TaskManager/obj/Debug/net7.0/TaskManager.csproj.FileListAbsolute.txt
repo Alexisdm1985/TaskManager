@@ -79,3 +79,4 @@ C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\obj\Debug\net7.0\refint\Tas
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\obj\Debug\net7.0\TaskManager.pdb
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\obj\Debug\net7.0\TaskManager.genruntimeconfig.cache
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\obj\Debug\net7.0\ref\TaskManager.dll
+C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.MicrosoftAccount.dll

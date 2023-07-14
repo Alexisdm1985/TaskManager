@@ -29,6 +29,14 @@
             <a class="btn btn-success" asp-action="Login">
                 Deseo Loguearme
             </a>
+
+            <a class="btn btn-dark" 
+                asp-controller="Usuarios" 
+                asp-action="LoginExterno"
+                asp-route-proveedor="Microsoft"
+            >
+                Continuar con Microsoft
+            </a>
         </form>
     </div>
 </div>
