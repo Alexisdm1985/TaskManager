@@ -4,14 +4,15 @@ namespace TaskManager.Models
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage ="El campo {0} es requerido")]
-        [EmailAddress(ErrorMessage ="El  campo debe ser un correo electronico valido")]
+        [Required(ErrorMessage = "Error.Campo.Requerido")]
+        [EmailAddress(ErrorMessage = "Error.Campo.Email")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage ="El campo {0} es requerido")]
+        [Required(ErrorMessage = "Error.Campo.Requerido")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
+        [Display(Name = "Recuerdame")]
         public bool Recuerdame { get; set; }
     }
 }

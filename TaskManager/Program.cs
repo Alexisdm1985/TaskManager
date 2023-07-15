@@ -27,7 +27,18 @@ builder.Services.AddControllersWithViews(opciones =>
     //Configurando "IViewLocalizer" para modificar las vistas segun idioma.
     // LanguageViewLocationExpanderFormat.Suffix quiere decir que los
     // archivos de recursos tendran el sufijo del idioma (.en, .es)
-}).AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
+}).AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+.AddDataAnnotationsLocalization(opciones =>
+{
+    // Esto permite utilizar un unico archivo de recursos para traducir
+    // las anotaciones de datos (datos dentro de un formulario como login)
+    // y el nombre del archivo de recursos es RecursoCompartido (es como lo mismo que
+    // IViewLocalizer pero con las anotaciones de datos.)
+    // Esto ya que en login y registro, etc. Comparten la misma informacion entonces
+    // para no crear un archivo .resx para cada uno, se crea uno para todos.
+    opciones.DataAnnotationLocalizerProvider = (_, factoria) =>
+        factoria.Create(typeof(RecursoCompartido));
+});
 
 /////// --------------------------------------------------------------- Servicios
 ///

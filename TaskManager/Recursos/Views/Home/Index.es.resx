@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TextoHomeBienvenida" xml:space="preserve">
+  <data name="Texto.Home.Bienvenida" xml:space="preserve">
     <value>Aprende acerca de &lt;a href=\"https://docs.microsoft.com/aspnet/core\"&gt; Construye aplicaciones Web con ASP.NET CORE &lt;/a&gt;.</value>
   </data>
 </root>
