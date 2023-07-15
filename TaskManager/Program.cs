@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
+using System.Linq;
 using TaskManager;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -51,9 +54,28 @@ builder.Services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.Ap
         opciones.AccessDeniedPath = "/Usuarios/Login";
     });
 
+// Activa el analisis de la localizacion del usuario, para usar IStringLocalizer
+builder.Services.AddLocalization(opciones =>
+{
+    // ResourcesPath buscar el path donde se encuentran los archivos resources
+    // creados para utilizarse dependiendo el idioma del navegador del usuario.
+    opciones.ResourcesPath = "Recursos";
+});
+
 var app = builder.Build();
 ////// ------------------------------------------------------------------------------------------------------------------------
-///
+
+
+// Configuracion de idiomas soportadas en la app
+var culturasUISoportadas = new[] { "es", "es" };
+
+// Obtiene la localizacion del usuario
+app.UseRequestLocalization(opciones =>
+{
+    opciones.DefaultRequestCulture = new RequestCulture("es");
+    opciones.SupportedCultures = culturasUISoportadas
+        .Select(cultura => new CultureInfo(cultura)).ToList();
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
