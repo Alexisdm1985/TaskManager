@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
@@ -21,8 +22,12 @@ var politicaUsuariosAutenticados = new AuthorizationPolicyBuilder()
 // Add services to the container.
 builder.Services.AddControllersWithViews(opciones =>
 {
-    opciones.Filters.Add(new AuthorizeFilter(politicaUsuariosAutenticados)); 
-});
+    opciones.Filters.Add(new AuthorizeFilter(politicaUsuariosAutenticados));
+
+    //Configurando "IViewLocalizer" para modificar las vistas segun idioma.
+    // LanguageViewLocationExpanderFormat.Suffix quiere decir que los
+    // archivos de recursos tendran el sufijo del idioma (.en, .es)
+}).AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
 
 /////// --------------------------------------------------------------- Servicios
 ///

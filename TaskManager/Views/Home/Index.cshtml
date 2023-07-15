@@ -1,12 +1,21 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+
+@*
+    La configuracion de IViewLocalizer esta en program.cs
+    y sirve para modificar las vistas segun el idioma del
+    navegador del usuario.
+*@
+@inject IViewLocalizer viewLocalizer;
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">@viewLocalizer["Bienvenido"]</h1>
+    <p>@viewLocalizer["TextoHomeBienvenida"]</p>
 </div>
 
 <div>
     <h2>@ViewBag.Saludo, UserName aqui lalala</h2>
-</div>
+</div>SssDD
