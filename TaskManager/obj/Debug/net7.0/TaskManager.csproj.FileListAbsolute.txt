@@ -90,3 +90,5 @@ C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\obj\Debug\net7.0\TaskManage
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\obj\Debug\net7.0\es\TaskManager.resources.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\obj\Debug\net7.0\TaskManager.Recursos.RecursoCompartido.en.resources
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\obj\Debug\net7.0\TaskManager.Recursos.RecursoCompartido.es.resources
+C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\obj\Debug\net7.0\TaskManager.Recursos.Views.Shared._TraduccionesTextoJs.en.resources
+C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\obj\Debug\net7.0\TaskManager.Recursos.Views.Shared._TraduccionesTextoJs.es.resources

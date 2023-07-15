@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
+      "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\js\\utilidades.js",
+      "PackagePath": "staticwebassets\\js\\utilidades.js"
+    },
+    {
       "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },

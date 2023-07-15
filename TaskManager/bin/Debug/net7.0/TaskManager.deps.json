@@ -19,6 +19,9 @@
         "resources": {
           "en/TaskManager.resources.dll": {
             "locale": "en"
+          },
+          "es/TaskManager.resources.dll": {
+            "locale": "es"
           }
         }
       },

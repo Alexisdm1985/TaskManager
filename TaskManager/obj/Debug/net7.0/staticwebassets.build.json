@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "uVAKiPNhPWIG82ThBQvDQta8NgLL+J9iOAL+gNJBZvg=",
+  "Hash": "z9LJ6UNPD2wzYCRxaE2ZtgcfGPm2lory2X56t/OYV8E=",
   "Source": "TaskManager",
   "BasePath": "_content/TaskManager",
   "Mode": "Default",
@@ -100,6 +100,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\js\\utilidades.js",
+      "SourceId": "TaskManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\",
+      "BasePath": "_content/TaskManager",
+      "RelativePath": "js/utilidades.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\utilidades.js"
     },
     {
       "Identity": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
