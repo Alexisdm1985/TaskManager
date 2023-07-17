@@ -20,7 +20,6 @@ namespace TaskManager.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Saludo = localizer["Buenos dias"];
             return View();
         }
 
