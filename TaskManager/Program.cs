@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
 using System.Linq;
 using TaskManager;
+using TaskManager.Servicios;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -81,16 +82,12 @@ builder.Services.AddLocalization(opciones =>
 var app = builder.Build();
 ////// ------------------------------------------------------------------------------------------------------------------------
 
-
-// Configuracion de idiomas soportadas en la app
-var culturasUISoportadas = new[] { "es", "es" };
-
 // Obtiene la localizacion del usuario
 app.UseRequestLocalization(opciones =>
 {
     opciones.DefaultRequestCulture = new RequestCulture("es");
-    opciones.SupportedCultures = culturasUISoportadas
-        .Select(cultura => new CultureInfo(cultura)).ToList();
+    opciones.SupportedUICultures = Constantes.CulturasUISoportadas
+        .Select(cultura => new CultureInfo(cultura.Value)).ToList();
 });
 
 // Configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System.Diagnostics;
 using TaskManager.Models;
@@ -23,10 +24,18 @@ namespace TaskManager.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult CambiarIdioma(string cultura, string urlRetorno)
         {
-            return View();
+            // Creacion cookie segun la cultura obtenida de la vista
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName, // Obtiene el nombre de la cookie que se encarga de la cultura ui
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(cultura)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(5) });
+
+            return LocalRedirect(urlRetorno);
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
