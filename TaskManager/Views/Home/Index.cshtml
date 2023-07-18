@@ -22,6 +22,10 @@
             <div data-bind="text: titulo" class="fw-bold"></div>
         </div>
     </div>
+
+    <div data-bind="visible: cargandoInfo" class="spinner-border">
+        <span class="visually-hidden">Cargando...</span>
+    </div>
 </div>
 
 @section Scripts {
@@ -34,13 +38,18 @@
         // "ko.observableArray([])" quiere decir que knockout estara observando cualquier cambio
         // en el array, si detecta un cambio, vuelve a renderizar el HTML que este ligado con este modelo
         const listadoTareasViewModel = {
-            tareas: ko.observableArray([
-                { titulo: "Tarea 1" },
-                { titulo: "Tarea 2" }
-            ])
+            tareas: ko.observableArray([]),
+            cargandoInfo: ko.observable(true) // Es solo "observable" ya que lleva un tipo de dato simple (boolean)
         }
 
         // Enlace del modelo con el html en la vista
         ko.applyBindings(listadoTareasViewModel, document.getElementById('contenedor-listado-tareas'));
+
+        setTimeout( () => {
+            // Luego de 2 segundos carga la informacion y el spinner en la vista desaparece
+            listadoTareasViewModel.tareas.push({titulo: "Tarea 1"});
+            listadoTareasViewModel.tareas.push({ titulo: "Tarea 2" });
+            listadoTareasViewModel.cargandoInfo(false);
+        }, 2000)
     </script>
 }
