@@ -1,1 +1,46 @@
-﻿
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IViewLocalizer localizer
+
+<div class="text-center">
+    <h1 class="display-4">@localizer["Mis Tareas"]</h1>
+</div>
+
+<div id="contenedor-listado-tareas" class="text-center">
+
+    @*
+    "data-bind" proviene de Knockout JS, y nos permite usar codigo js
+    En este caso por cada tarea en el arreglo tareas creara un nuevo div
+    *@
+    <div class="text-start" data-bind="foreach: tareas">
+
+        <div name="tarea" class="border mb-2 p-2" style="cursor: pointer">
+            @*
+            Con "text: titulo" decimos que buscamos la propiedad titulo en tareas, y
+            se imprimira en este div
+            *@
+            <div data-bind="text: titulo" class="fw-bold"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // ## Trabajando con knockout js ##
+
+        //"listadoTareasViewModel" es como un Model en C# pero con js y knockout.
+        // Tiene una propiedad tareas que es un arreglo que tendra en memoria (para no utilizar DB mientras aun se prueban cosas)
+        // todas las tareas, las cuales (hasta ahora) tendran un titulo.
+        // "ko.observableArray([])" quiere decir que knockout estara observando cualquier cambio
+        // en el array, si detecta un cambio, vuelve a renderizar el HTML que este ligado con este modelo
+        const listadoTareasViewModel = {
+            tareas: ko.observableArray([
+                { titulo: "Tarea 1" },
+                { titulo: "Tarea 2" }
+            ])
+        }
+
+        // Enlace del modelo con el html en la vista
+        ko.applyBindings(listadoTareasViewModel, document.getElementById('contenedor-listado-tareas'));
+    </script>
+}
