@@ -26,12 +26,14 @@
     <div data-bind="visible: cargandoInfo" class="spinner-border">
         <span class="visually-hidden">Cargando...</span>
     </div>
+
+    <div data-bind="visible: noHayTareas">
+        <span>No hay tareas para mostrar</span>
+    </div>
 </div>
 
 @section Scripts {
-    <script>
-        // ## Trabajando con knockout js ##
-
+        <script>
         //"listadoTareasViewModel" es como un Model en C# pero con js y knockout.
         // Tiene una propiedad tareas que es un arreglo que tendra en memoria (para no utilizar DB mientras aun se prueban cosas)
         // todas las tareas, las cuales (hasta ahora) tendran un titulo.
@@ -39,17 +41,63 @@
         // en el array, si detecta un cambio, vuelve a renderizar el HTML que este ligado con este modelo
         const listadoTareasViewModel = {
             tareas: ko.observableArray([]),
-            cargandoInfo: ko.observable(true) // Es solo "observable" ya que lleva un tipo de dato simple (boolean)
+            cargandoInfo: ko.observable(true),
+            noHayTareas: ko.pureComputed(function () {
+
+                if (listadoTareasViewModel.cargandoInfo()) {
+                    return false;
+                }
+
+                // Si ha dejado de cargar la informacion
+                // se comprueba de que existan tareas en el arreglo.
+                // Si no existe entonces la propiedad "noHayTareas" true y
+                // mostrara el div en la vida de no hay tareas.
+                return listadoTareasViewModel.tareas().length === 0;
+            })
         }
 
         // Enlace del modelo con el html en la vista
         ko.applyBindings(listadoTareasViewModel, document.getElementById('contenedor-listado-tareas'));
 
-        setTimeout( () => {
+        setTimeout(() => {
             // Luego de 2 segundos carga la informacion y el spinner en la vista desaparece
-            listadoTareasViewModel.tareas.push({titulo: "Tarea 1"});
-            listadoTareasViewModel.tareas.push({ titulo: "Tarea 2" });
+            listadoTareasViewModel.tareas.push({ titulo: "Tarea 1" });
+            //listadoTareasViewModel.tareas.push({ titulo: "Tarea 2" });
             listadoTareasViewModel.cargandoInfo(false);
         }, 2000)
     </script>
+
+@*    <script>
+        // En el video hace todo este script de otra forma, instancia una funcion para crear el modelo
+        // en vez de crear el modelo directamente como yo lo tengo.
+        function fnListadoTareasViewModel() {
+            var self = this;
+
+            self.tareas = ko.observableArray([]);
+            self.cargandoInfo = ko.observable(true);
+
+            self.noHayTareas = ko.pureComputed(function () {
+
+                if (self.cargandoInfo()) {
+                    return false;
+                }
+
+                return self.tareas().length === 0;
+            })
+        }
+
+        // Instancia la funcion como modelo en "listadoTareasViewModel"
+        const listadoTareasViewModel = new fnListadoTareasViewModel();
+
+        // Enlace del modelo con el html en la vista
+        ko.applyBindings(listadoTareasViewModel, document.getElementById('contenedor-listado-tareas'));
+
+        setTimeout(() => {
+            // Luego de 2 segundos carga la informacion y el spinner en la vista desaparece
+            listadoTareasViewModel.tareas.push({ titulo: "Tarea 1" });
+            //listadoTareasViewModel.tareas.push({ titulo: "Tarea 2" });
+            listadoTareasViewModel.cargandoInfo(false);
+        }, 2000)
+
+    </script>*@
 }
