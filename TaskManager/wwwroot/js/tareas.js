@@ -36,7 +36,7 @@ async function manejarFocusOutTituloTarea(tarea) {
         // y entonces se mostrara.
         tarea.id(json.id);
     } else {
-        // mostrar mensaje de error
+        mostrarMensajeErrorAPI(response);
     }
 }
 
@@ -50,6 +50,7 @@ async function ObtenerListaTareas() {
     })
 
     if (!response.ok) {
+        mostrarMensajeErrorAPI(response);
         return;
     }
 

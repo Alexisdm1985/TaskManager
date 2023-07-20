@@ -117,7 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Alert.Mensaje.Error" xml:space="preserve">
-    <value>Hola mijo, hay un error !</value>
+  <data name="Error.Inesperado" xml:space="preserve">
+    <value>Lo sentimos, ha ocurrido un error inesperado :O</value>
+  </data>
+  <data name="Error.NotFound" xml:space="preserve">
+    <value>Lo sentimos, no hemos encontrado lo que buscas uwu</value>
   </data>
 </root>
