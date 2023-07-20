@@ -9,7 +9,7 @@
 
 }
 
-function manejarFocusOutTituloTarea(tarea) {
+async function manejarFocusOutTituloTarea(tarea) {
 
     const titulo = tarea.titulo();
 
@@ -20,8 +20,22 @@ function manejarFocusOutTituloTarea(tarea) {
     
     const creacionTareaAudio = new Audio("../Content/sounds/kirby-bonus.mp3")
     creacionTareaAudio.play();
-    // Seteando el id de tarea a distinto a 0 quiere decir que ya no es una nueva
-    //tarea por lo que se mostrara entonces en la vista.
-    tarea.id(1);
 
+    // POST NUEVA TAREA
+    const data = JSON.stringify(titulo);
+    const response = await fetch(urlTareas, {
+        method: 'POST',
+        body: data,
+        headers: { 'Content-Type': 'application/json' }
+    });
+
+    if (response.ok) {
+        const json = await response.json();
+
+        // Seteando el ID de la tarea, se marcara como tarea no es nueva (ya que el campo es observable por knockout)
+        // y entonces se mostrara.
+        tarea.id(json.id);
+    } else {
+        // mostrar mensaje de error
+    }
 }
