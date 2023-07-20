@@ -2,7 +2,7 @@
 
 @inject IViewLocalizer localizer
 @{
-    <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
+    //<link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
 }
 
 
@@ -27,7 +27,7 @@
         *@
         <div class="text-start" data-bind="foreach: tareas">
 
-            <div name="tarea" class="border mb-2 p-2" style="cursor: pointer">
+            <div name="tarea" class="border mb-2 p-2" style="cursor: pointer" id="cardTarea">
                 @*
                 Con "text: titulo" decimos que buscamos la propiedad titulo en tareas, y
                 se imprimira en este div
@@ -99,13 +99,10 @@
         // Instancia la funcion como modelo en "listadoTareasViewModel"
         const listadoTareasViewModel = new fnListadoTareasViewModel();
 
+        ObtenerListaTareas();
+
         // Enlace del modelo con el html en la vista
         ko.applyBindings(listadoTareasViewModel, document.getElementById('contenedor-listado-tareas'));
-
-        // Simula el tiemop de espera de la carga de informacion
-        setTimeout(() => {
-            listadoTareasViewModel.cargandoInfo(false);
-        }, 300)
 
     </script>
 }

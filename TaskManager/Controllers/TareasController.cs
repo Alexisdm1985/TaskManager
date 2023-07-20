@@ -52,5 +52,13 @@ namespace TaskManager.Controllers
 
             return tarea;
         }
+
+        [HttpGet]
+        public async Task<List<Tarea>> Get()
+        {   
+            return await dbContext.Tareas.ToListAsync();
+        }
+
+        
     }
 }

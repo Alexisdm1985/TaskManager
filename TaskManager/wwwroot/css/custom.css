@@ -17,8 +17,8 @@ footer {
 #containerHome {
     display: flex;
     flex-direction: column;
-    height: 60vh;
-    width: 60vh;
+    min-height: 60vh;
+    min-width: 60vh;
     justify-content: center;
     align-content: center;
     gap: 1rem;
@@ -26,4 +26,9 @@ footer {
     box-shadow: rgba(0,0,0,.1) -3px 4px 4px 4px;
     border-radius: .7rem;
 
+}
+
+#cardTarea {
+    border-radius: 20px;
+    border: 1px solid #FFCACC !important;
 }

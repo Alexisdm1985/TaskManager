@@ -39,3 +39,27 @@ async function manejarFocusOutTituloTarea(tarea) {
         // mostrar mensaje de error
     }
 }
+
+// Obtener lista de tareas
+async function ObtenerListaTareas() {
+    listadoTareasViewModel.cargandoInfo(true);
+
+    const response = await fetch(urlTareas, {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
+    })
+
+    if (!response.ok) {
+        return;
+    }
+
+    listadoTareasViewModel.tareas([]);
+
+    const json = await response.json();
+
+    json.forEach((tarea) => {
+        listadoTareasViewModel.tareas.push(new fnTareaViewModel(tarea));
+    })
+
+    listadoTareasViewModel.cargandoInfo(false);
+}
