@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskManager.Entidades;
+using TaskManager.Models;
 using TaskManager.Servicios;
 
 namespace TaskManager.Controllers
@@ -54,9 +55,23 @@ namespace TaskManager.Controllers
         }
 
         [HttpGet]
-        public async Task<List<Tarea>> Get()
-        {   
-            return await dbContext.Tareas.ToListAsync();
+        public async Task<List<TareaDTO>> Get()
+        {
+            var usuarioId = servicioUsuarios.ObtenerIdUsuarioAutentificado();
+
+            // Devuelve un objeto del tipo TareaDTO con los datos necesarios
+            // que seran transformados en JSON desde tarea.js para ocuparlos
+            var tareas = await dbContext.Tareas
+                .Where(tarea => tarea.UsuarioCreadorId == usuarioId)
+                .OrderBy(tarea => tarea.Orden)
+                .Select(tarea => new TareaDTO
+                {
+                    Id = tarea.Id,
+                    Titulo = tarea.Titulo
+                })
+                .ToListAsync();
+
+            return tareas;
         }
 
         
