@@ -1,0 +1,29 @@
+﻿body {
+    /*background-image: url("../img/background-kirby.jpg");*/
+    background-image: url("../img/kirby-2.jpg");
+    /* Full height */
+    /*height: 100%;*/
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    letter-spacing: 2px;
+}
+
+footer {
+    backdrop-filter: blur(5px);
+}
+
+#containerHome {
+    display: flex;
+    flex-direction: column;
+    height: 60vh;
+    width: 60vh;
+    justify-content: center;
+    align-content: center;
+    gap: 1rem;
+    backdrop-filter: blur(10px);
+    box-shadow: rgba(0,0,0,.1) -3px 4px 4px 4px;
+    border-radius: .7rem;
+
+}

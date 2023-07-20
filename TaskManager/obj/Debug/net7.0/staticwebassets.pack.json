@@ -5,12 +5,32 @@
       "PackagePath": "staticwebassets\\TaskManager.bundle.scp.css"
     },
     {
+      "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\Content\\sounds\\kirby-bonus.mp3",
+      "PackagePath": "staticwebassets\\Content\\sounds\\kirby-bonus.mp3"
+    },
+    {
+      "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\Content\\sounds\\kirby-hi.mp3",
+      "PackagePath": "staticwebassets\\Content\\sounds\\kirby-hi.mp3"
+    },
+    {
+      "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\css\\custom.css",
+      "PackagePath": "staticwebassets\\css\\custom.css"
+    },
+    {
       "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\img\\background-kirby.jpg",
+      "PackagePath": "staticwebassets\\img\\background-kirby.jpg"
+    },
+    {
+      "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\img\\kirby-2.jpg",
+      "PackagePath": "staticwebassets\\img\\kirby-2.jpg"
     },
     {
       "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\js\\site.js",

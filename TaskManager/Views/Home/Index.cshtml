@@ -1,49 +1,60 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization;
 
 @inject IViewLocalizer localizer
+@{
+    <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
+}
 
-<div class="text-center">
-    <h1 class="display-4">@localizer["Mis Tareas"]</h1>
 
-    <button class="btn btn-primary mb-3" onclick="agregarTareas()">
-        @localizer["Agregar nueva tarea"]
-    </button>
-</div>
 
-<div id="contenedor-listado-tareas" class="text-center">
+@*<img src="~/img/background-kirby.jpg"/>*@
+<div class="container" id="containerHome">
 
-    @*
-    "data-bind" proviene de Knockout JS, y nos permite usar codigo js
-    En este caso por cada tarea en el arreglo tareas creara un nuevo div
-    *@
-    <div class="text-start" data-bind="foreach: tareas">
+    <div class="text-center">
+        <h1 class="display-4 fw-bold" style="color: white">@localizer["Mis Tareas"]</h1>
 
-        <div name="tarea" class="border mb-2 p-2" style="cursor: pointer">
-            @*
-            Con "text: titulo" decimos que buscamos la propiedad titulo en tareas, y
-            se imprimira en este div
-            *@
-            <div data-bind="text: titulo, hidden: esNuevaTarea" class="fw-bold"></div>
+        <button class="btn btn-primary mb-3" onclick="agregarTareas()">
+            @localizer["Agregar nueva tarea"]
+        </button>
+    </div>
 
-            @*El valor del input sea el titulo de tareas.tarea[i].titulo
-            sera visible solo si la propiedad del modelo "esNuevaTarea" es true
-            Tendra un evento que al quitar el focus, acciona la funcion "manejarFocusOutTituloTarea"
-            (automaticamente se envia la tarea en cuestion como argumento)*@
-            <input type="text" name="titulo-tarea" autocomplete="off"
-                   data-bind="value: titulo,
+    <div id="contenedor-listado-tareas" class="text-center">
+
+
+        @*
+        "data-bind" proviene de Knockout JS, y nos permite usar codigo js
+        En este caso por cada tarea en el arreglo tareas creara un nuevo div
+        *@
+        <div class="text-start" data-bind="foreach: tareas">
+
+            <div name="tarea" class="border mb-2 p-2" style="cursor: pointer">
+                @*
+                Con "text: titulo" decimos que buscamos la propiedad titulo en tareas, y
+                se imprimira en este div
+                *@
+                <div data-bind="text: titulo, hidden: esNuevaTarea" class="fw-bold"></div>
+
+                @*El valor del input sea el titulo de tareas.tarea[i].titulo
+                sera visible solo si la propiedad del modelo "esNuevaTarea" es true
+                Tendra un evento que al quitar el focus, acciona la funcion "manejarFocusOutTituloTarea"
+                (automaticamente se envia la tarea en cuestion como argumento)*@
+                <input type="text" name="titulo-tarea" autocomplete="off"
+                       data-bind="value: titulo,
                         visible: esNuevaTarea,
                         event: {focusout: manejarFocusOutTituloTarea}" />
+            </div>
+        </div>
+
+        <div data-bind="visible: cargandoInfo" class="spinner-border">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+
+        <div data-bind="visible: noHayTareas">
+            <span>No hay tareas para mostrar</span>
         </div>
     </div>
-
-    <div data-bind="visible: cargandoInfo" class="spinner-border">
-        <span class="visually-hidden">Cargando...</span>
-    </div>
-
-    <div data-bind="visible: noHayTareas">
-        <span>No hay tareas para mostrar</span>
-    </div>
 </div>
+
 
 @section Scripts {
 
@@ -71,15 +82,15 @@
             })
         }
 
-        function fnTareaViewModel( {id, titulo} ) {
+        function fnTareaViewModel({ id, titulo }) {
             var self = this;
             self.id = ko.observable(id),
-            self.titulo = ko.observable(titulo),
-            self.esNuevaTarea = ko.pureComputed(function () {
+                self.titulo = ko.observable(titulo),
+                self.esNuevaTarea = ko.pureComputed(function () {
 
-                // Si el id es 0 entonces corresponde a una nueva tarea
-                return self.id() == 0;
-            })
+                    // Si el id es 0 entonces corresponde a una nueva tarea
+                    return self.id() == 0;
+                })
         }
 
         // Instancia la funcion como modelo en "listadoTareasViewModel"
