@@ -76,7 +76,24 @@ async function actualizarOrdenTareas() {
 
     const ids = obtenerIdsTareas();
     await ordenarTareasDB(ids);
-    await ObtenerListaTareas();
+    await ObtenerListaTareas(); 
+
+    // ---------- Este bloque es igual al del video pero no me funciona --------------------------
+
+    // Ordenar en memoria
+    //const tareasOrdenadas = listadoTareasViewModel.tareas.sorted(function (a, b) {
+
+    //    let indicePrimeraTarea = ids.indexOf(a.id().toString());
+    //    let indiceSegundaTarea = ids.indexOf(b.id().toString());
+
+    //    return indicePrimeraTarea - indiceSegundaTarea;
+    //});
+
+    //tareasOrdenadas.forEach(t => console.log(t.titulo()))
+    //listadoTareasViewModel.tareas([]);
+    //listadoTareasViewModel.tareas(tareasOrdenadas);
+    //listadoTareasViewModel.tareas().forEach((t) => console.log(t.titulo(), " - despues"));
+    // ---------------------------------------------------------------------------------------------
 }
 
 // Ordenar en base de datos
@@ -95,19 +112,6 @@ async function ordenarTareasDB(idsTareas) {
         mostrarMensajeErrorAPI(response);
     }
 }
-
-// Ordenar en memoria
-//async function ordenarTareasVista() {
-    /// Aqui deberia ir una logica de ordenar los ids en el front
-    /// con sorted(), segun el video. Pero yo solo volvi a llamar
-    /// a ObtenerListaTareas(); ya que eso vuelve a cargar la vista
-    /// con las tareas, y el backend se encarga de devolver las tareas
-    /// segun la columna Orden, por lo que siempre vendran ordenadas.
-    /// Solo queda averiguar cual opcion es mejor en rendimiento :O
-
-
-//}
-
 
 // Obtiene el id de las tareas en la vista index.cshtml
 function obtenerIdsTareas() {
