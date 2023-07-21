@@ -25,7 +25,7 @@
         "data-bind" proviene de Knockout JS, y nos permite usar codigo js
         En este caso por cada tarea en el arreglo tareas creara un nuevo div
         *@
-        <div class="text-start" data-bind="foreach: tareas">
+        <div id="reordenable" class="text-start" data-bind="foreach: tareas">
 
             <div name="tarea" class="border mb-2 p-2" style="cursor: pointer" id="cardTarea">
                 @*
@@ -41,7 +41,8 @@
                 <input type="text" name="titulo-tarea" autocomplete="off"
                        data-bind="value: titulo,
                         visible: esNuevaTarea,
-                        event: {focusout: manejarFocusOutTituloTarea}" />
+                        event: {focusout: manejarFocusOutTituloTarea},
+                        attr: {'data-id': id}" />
             </div>
         </div>
 
@@ -58,8 +59,8 @@
 
 @section Scripts {
 
-    <script src="~/js/tareas.js" asp-append-version="true"></script>
     <script src="~/js/utilidades.js" asp-append-version="true"></script>
+    <script src="~/js/tareas.js" asp-append-version="true"></script>
 
     <script>
         // En el video hace todo este script de otra forma, instancia una funcion para crear el modelo

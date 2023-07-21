@@ -74,6 +74,39 @@ namespace TaskManager.Controllers
             return tareas;
         }
 
-        
+        // Ordena las tareas usando Jquery UI, Identity y EF core.
+        [HttpPost]
+        [Route("ordenar")]
+        public async Task<IActionResult> OrdenarTareas([FromBody] int[] idsTareas)
+        {
+            // Verificar las tareas del usuario
+            var usuarioId = servicioUsuarios.ObtenerIdUsuarioAutentificado();
+            var tareas = await dbContext.Tareas.Where(tarea => tarea.UsuarioCreadorId == usuarioId).ToListAsync();
+
+            var tareasIds = tareas.Select(t => t.Id);
+
+            // Validando el idsTareas del front
+            var idsTareasNoDelUsuario = idsTareas.Except(tareasIds).ToList();
+            if (idsTareasNoDelUsuario.Any())
+            {
+                return Forbid();
+            }
+
+            // Con el diccionario podemos obtener la tarea directamente con
+            // el id, que es lo que se hace en el siguiente for()
+            var idsTareasDictionary = tareas.ToDictionary(t => t.Id);
+
+            for (int i = 0; i < idsTareas.Length; i++)
+            {
+                var idTarea = idsTareas[i];
+                var tarea = idsTareasDictionary[idTarea];
+                tarea.Orden = i + 1;
+            }
+
+            // Confirmando los cambios
+            await dbContext.SaveChangesAsync();
+
+            return Ok();
+        }
     }
 }

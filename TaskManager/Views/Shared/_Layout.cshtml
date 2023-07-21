@@ -55,15 +55,16 @@
         </div>
     </footer>
 
-    <partial name="_TraduccionesTextoJs" />
 
+    <partial name="_TraduccionesTextoJs" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+    <script src="~/lib/jquery-ui-1.13.2/jquery-ui.min.js"></script>
     @*Knockout js libreria para interaccion (otra opcion para Angularjs, Reactjs, Jquery, JqueryUi, etc)*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>
