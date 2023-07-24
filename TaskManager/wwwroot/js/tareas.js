@@ -154,11 +154,8 @@ async function manejarClickTarea(tarea) {
     }
 
     const data = await response.json()
-    console.log(data)
 
     tareaEditarVM.id = data.id;
     tareaEditarVM.titulo(data.titulo);
     tareaEditarVM.descripcion(data.descripcion);
-    console.log(tareaEditarVM);
-    console.log(tareaEditarVM.titulo());
 }
