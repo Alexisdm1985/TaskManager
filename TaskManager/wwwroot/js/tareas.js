@@ -134,3 +134,31 @@ $(function () {
         }
     });
 })
+
+async function manejarClickTarea(tarea) {
+
+    // Validacion
+    if (tarea.esNuevaTarea()) {
+        return;
+    }
+
+    // FETCH GET
+    const response = await fetch(`${urlTareas}/${tarea.id()}`, {
+        method: 'GET',
+        headers: {'Content-Type' : 'application/json'}
+    })
+
+    if (!response.ok) {
+        mostrarMensajeErrorAPI(response);
+        return;
+    }
+
+    const data = await response.json()
+    console.log(data)
+
+    tareaEditarVM.id = data.id;
+    tareaEditarVM.titulo(data.titulo);
+    tareaEditarVM.descripcion(data.descripcion);
+    console.log(tareaEditarVM);
+    console.log(tareaEditarVM.titulo());
+}

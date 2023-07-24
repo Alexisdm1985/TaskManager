@@ -108,5 +108,19 @@ namespace TaskManager.Controllers
 
             return Ok();
         }
+
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Tarea>> Get(int id)
+        {
+            var usuarioId = servicioUsuarios.ObtenerIdUsuarioAutentificado();
+
+            var tarea = await dbContext.Tareas.FirstOrDefaultAsync(t => t.UsuarioCreadorId == usuarioId && t.Id == id);
+            if (tarea is null)
+            {
+                return NotFound();
+            }
+
+            return tarea;
+        }
     }
 }

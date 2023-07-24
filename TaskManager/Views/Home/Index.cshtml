@@ -27,7 +27,7 @@
         *@
         <div id="reordenable" class="text-start" data-bind="foreach: tareas">
 
-            <div name="tarea" class="border mb-2 p-2" style="cursor: pointer" id="cardTarea">
+            <div name="tarea" data-bind="click: manejarClickTarea" class="border mb-2 p-2" style="cursor: pointer" id="cardTarea">
                 @*
                 Con "text: titulo" decimos que buscamos la propiedad titulo en tareas, y
                 se imprimira en este div
@@ -72,6 +72,7 @@
         // URL
         const urlTareas = "/api/tareas";
 
+        // ### MODELS ###
         function fnListadoTareasViewModel() {
             var self = this;
 
@@ -96,6 +97,12 @@
                     // Si el id es 0 entonces corresponde a una nueva tarea
                     return self.id() == 0;
                 })
+        }
+
+        const tareaEditarVM = {
+            id: 0,
+            titulo: ko.observable(''),
+            descripcion: ko.observable('')
         }
 
         // Instancia la funcion como modelo en "listadoTareasViewModel"
