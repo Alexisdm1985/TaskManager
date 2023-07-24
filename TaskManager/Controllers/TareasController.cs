@@ -122,5 +122,24 @@ namespace TaskManager.Controllers
 
             return tarea;
         }
+
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<Tarea>> Put(int id, [FromBody] TareaEditarDTO tarea)
+        {
+
+            var usuarioId = servicioUsuarios.ObtenerIdUsuarioAutentificado();
+            var tareaPorEditar = await dbContext.Tareas.FirstOrDefaultAsync(t => t.UsuarioCreadorId == usuarioId && t.Id == tarea.Id);
+            if (tareaPorEditar is null)
+            {
+                return NotFound();
+            }
+
+            tareaPorEditar.Titulo = tarea.Titulo;
+            tareaPorEditar.Descripcion = tarea.Descripcion;
+
+            await dbContext.SaveChangesAsync();
+
+            return Ok();
+        }
     }
 }

@@ -162,3 +162,44 @@ async function manejarClickTarea(tarea) {
     modalEditarTareaBootstrap.show();
 
 }
+
+async function manejarChangeTarea() {
+
+    const modelo = {
+        id: tareaEditarVM.id,
+        titulo: tareaEditarVM.titulo(),
+        descripcion: tareaEditarVM.descripcion()
+    }
+
+    if (!modelo.titulo) {
+        return;
+    }
+
+    // Fetch PUT
+    await editarTarea(modelo);
+
+    // Obtener index para ordenar las tareas en memoria
+    mostrarCambiosEnMemoria(modelo);
+}
+
+async function editarTarea(tarea) {
+
+    const response = await fetch(`${urlTareas}/${tarea.id}`, {
+        method: 'PUT',
+        body: JSON.stringify(tarea),
+        headers: { 'Content-Type': 'application/json' }
+    })
+
+    if (!response.ok) {
+        mostrarMensajeErrorAPI(response)
+        return;
+    }
+}
+
+function mostrarCambiosEnMemoria({titulo, id}) {
+    
+    const indiceTarea = listadoTareasViewModel.tareas().findIndex(t => t.id() === id);
+    const tareaEnMemoria = listadoTareasViewModel.tareas()[indiceTarea];
+    
+    tareaEnMemoria.titulo(titulo);
+}
