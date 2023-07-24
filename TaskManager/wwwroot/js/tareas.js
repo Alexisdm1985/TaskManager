@@ -158,4 +158,7 @@ async function manejarClickTarea(tarea) {
     tareaEditarVM.id = data.id;
     tareaEditarVM.titulo(data.titulo);
     tareaEditarVM.descripcion(data.descripcion);
+
+    modalEditarTareaBootstrap.show();
+
 }

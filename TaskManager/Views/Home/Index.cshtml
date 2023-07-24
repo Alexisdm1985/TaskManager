@@ -56,6 +56,7 @@
     </div>
 </div>
 
+<partial name="_ModalEditarTarea" />
 
 @section Scripts {
 
@@ -71,6 +72,11 @@
 
         // URL
         const urlTareas = "/api/tareas";
+
+        // Creacion modal con bootstrap
+        // Nota: se muestra con el metodo .show() en tarea.js
+        const modalEditarTarea = document.getElementById('modal-editar-tarea');
+        const modalEditarTareaBootstrap = new bootstrap.Modal(modalEditarTarea);
 
         // ### MODELS ###
         function fnListadoTareasViewModel() {
@@ -112,6 +118,6 @@
 
         // Enlace del modelo con el html en la vista
         ko.applyBindings(listadoTareasViewModel, document.getElementById('contenedor-listado-tareas'));
-
+        ko.applyBindings(tareaEditarVM, document.getElementById('modal-editar-tarea'));
     </script>
 }
