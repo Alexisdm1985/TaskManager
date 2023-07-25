@@ -33,6 +33,10 @@
       "PackagePath": "staticwebassets\\img\\kirby-2.jpg"
     },
     {
+      "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\js\\Pasos.js",
+      "PackagePath": "staticwebassets\\js\\Pasos.js"
+    },
+    {
       "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
