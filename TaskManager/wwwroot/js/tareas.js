@@ -64,7 +64,7 @@ async function ObtenerListaTareas() {
     json.forEach((tarea) => {
         listadoTareasViewModel.tareas.push(new fnTareaViewModel(tarea));
     })
-
+    
     listadoTareasViewModel.cargandoInfo(false);
 }
 
@@ -160,6 +160,14 @@ async function manejarClickTarea(tarea) {
     tareaEditarVM.titulo(data.titulo);
     tareaEditarVM.descripcion(data.descripcion);
 
+    tareaEditarVM.pasos([]);
+    
+    data.pasoTareas.forEach(paso => {
+        tareaEditarVM.pasos.push(
+            new pasosTareaVM({...paso, modoEdicion: false})
+        )
+    })
+    
     modalEditarTareaBootstrap.show();
 
 }
