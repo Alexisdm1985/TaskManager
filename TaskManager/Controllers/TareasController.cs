@@ -141,5 +141,22 @@ namespace TaskManager.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> EliminarTarea(int id)
+        {
+            var usuarioId = servicioUsuarios.ObtenerIdUsuarioAutentificado();
+            var tarea = await dbContext.Tareas.FirstOrDefaultAsync(t => t.UsuarioCreadorId == usuarioId && t.Id == id);
+            
+            if (tarea is null)
+            {
+                return NotFound();
+            }
+
+            dbContext.Remove(tarea);
+            await dbContext.SaveChangesAsync();
+
+            return Ok();
+        }
     }
 }

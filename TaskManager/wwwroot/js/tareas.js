@@ -76,7 +76,7 @@ async function actualizarOrdenTareas() {
 
     const ids = obtenerIdsTareas();
     await ordenarTareasDB(ids);
-    await ObtenerListaTareas(); 
+    await ObtenerListaTareas();
 
     // ---------- Este bloque es igual al del video pero no me funciona --------------------------
 
@@ -135,6 +135,7 @@ $(function () {
     });
 })
 
+// Abre modal con la tarea para su edicion
 async function manejarClickTarea(tarea) {
 
     // Validacion
@@ -145,7 +146,7 @@ async function manejarClickTarea(tarea) {
     // FETCH GET
     const response = await fetch(`${urlTareas}/${tarea.id()}`, {
         method: 'GET',
-        headers: {'Content-Type' : 'application/json'}
+        headers: { 'Content-Type': 'application/json' }
     })
 
     if (!response.ok) {
@@ -163,6 +164,7 @@ async function manejarClickTarea(tarea) {
 
 }
 
+// Maneja los cambios en los inputs del _ModalEditarTarea.cshtml
 async function manejarChangeTarea() {
 
     const modelo = {
@@ -196,10 +198,51 @@ async function editarTarea(tarea) {
     }
 }
 
-function mostrarCambiosEnMemoria({titulo, id}) {
-    
+function mostrarCambiosEnMemoria({ titulo, id }) {
+
     const indiceTarea = listadoTareasViewModel.tareas().findIndex(t => t.id() === id);
     const tareaEnMemoria = listadoTareasViewModel.tareas()[indiceTarea];
-    
+
     tareaEnMemoria.titulo(titulo);
+}
+
+function confirmarEliminarTarea(tarea) {
+
+    // Esconde el modal de EditarTarea
+    modalEditarTareaBootstrap.hide();
+
+    const dataModal = {
+        titulo: `${tarea.titulo()}`,
+        callBackConfirmar: () => {
+            eliminarTarea(tarea);
+        },
+        callBackCancelar: () => {
+            modalEditarTareaBootstrap.show();
+        }
+    }
+
+    modalBorrarTarea(dataModal);
+}
+
+async function eliminarTarea(tarea) {
+
+    const response = await fetch(`${urlTareas}/${tarea.id}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' }
+    })
+
+    if (!response.ok) {
+        mostrarMensajeErrorAPI(response)
+        return;
+    }
+
+    // Eliminar la tarea en memoria
+    // (Podemos volver a cargar la vista...pero para que xd, al parecer es mejor trabajar en memoria)
+    const indice = obtenterIndiceTarea(tarea.id);
+    
+    listadoTareasViewModel.tareas.splice(indice, 1);
+}
+
+function obtenterIndiceTarea(id) {
+    return listadoTareasViewModel.tareas().findIndex(t => t.id() === id);
 }
