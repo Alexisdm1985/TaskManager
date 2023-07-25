@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
 using System.Linq;
+using System.Text.Json.Serialization;
 using TaskManager;
 using TaskManager.Servicios;
 
@@ -39,6 +40,12 @@ builder.Services.AddControllersWithViews(opciones =>
     // para no crear un archivo .resx para cada uno, se crea uno para todos.
     opciones.DataAnnotationLocalizerProvider = (_, factoria) =>
         factoria.Create(typeof(RecursoCompartido));
+}).AddJsonOptions(opciones =>
+{
+    // Esta opciones le dice al serializador JSON que cuando un objeto tenga alguna
+    // referencia ciclica, lo ignore. Por ejemplo hay una referencia ciclica entre
+    // Tarea y PasoTarea ya que cada una hace referencia a la otra.
+    opciones.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
 
 /////// --------------------------------------------------------------- Servicios
