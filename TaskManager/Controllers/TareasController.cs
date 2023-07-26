@@ -63,11 +63,14 @@ namespace TaskManager.Controllers
             // que seran transformados en JSON desde tarea.js para ocuparlos
             var tareas = await dbContext.Tareas
                 .Where(tarea => tarea.UsuarioCreadorId == usuarioId)
+                .Include(tarea => tarea.PasoTareas)
                 .OrderBy(tarea => tarea.Orden)
                 .Select(tarea => new TareaDTO
                 {
                     Id = tarea.Id,
-                    Titulo = tarea.Titulo
+                    Titulo = tarea.Titulo,
+                    TotalPasos = tarea.PasoTareas.Count(),
+                    PasosRealizados = tarea.PasoTareas.Where(p => p.Realizado == true).Select(p => p.Realizado).Count()
                 })
                 .ToListAsync();
 
