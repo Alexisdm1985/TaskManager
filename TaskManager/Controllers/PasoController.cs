@@ -58,5 +58,31 @@ namespace TaskManager.Controllers
 
             return nuevoPaso;
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> ActualizarPaso(Guid id,[FromBody] CrearPasoTareaDTO pasoActualizado)
+        {
+            var usuarioId = servicioUsuarios.ObtenerIdUsuarioAutentificado();
+
+            var paso = await dbContext.PasoTareas
+                .Include(paso => paso.Tarea)
+                .FirstOrDefaultAsync(paso => paso.Id == id);
+
+            if (paso is null)
+            {
+                return NotFound();
+            }
+
+            if (paso.Tarea.UsuarioCreadorId != usuarioId)
+            {
+                return Forbid();
+            }
+
+            paso.Descripcion = pasoActualizado.Descripcion;
+            paso.Realizado = pasoActualizado.Realizado;
+
+            await dbContext.SaveChangesAsync();
+            return Ok();
+        }
     }
 }

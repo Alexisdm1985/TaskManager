@@ -13,9 +13,11 @@
                        data-bind="{checked: realizado}" />
             </div>
             <div class="col-11">
-                <span data-bind="text: descripcion, 
-                                hidden:modoEdicion, 
-                                css: {'text-decoration-line-through': realizado}"></span>
+                <span data-bind="text: descripcion,
+                                hidden:modoEdicion,
+                                css: {'text-decoration-line-through': realizado},
+                                click: manejarClickDescripcionPaso"
+                      style="cursor: pointer"></span>
 
                 <textarea name="txtPasoDescripcion"
                           class="form-control"

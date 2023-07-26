@@ -21,6 +21,9 @@ function manejarCancelarPaso(paso) {
 
     if (paso.esNuevoPaso()) {
         tareaEditarVM.pasos.pop();
+    } else {
+        paso.modoEdicion(false);
+        paso.descripcion(paso.descripcionAnterior);
     }
     
 }
@@ -31,14 +34,26 @@ async function manejarGuardarPaso(paso) {
 
     const idTarea = tareaEditarVM.id;
     const data = obtenerDataPeticionPaso(paso)
-
-    // Si no es nuevo entonces se actualiza (por hacer)
+    
+    // Si no es nuevo entonces se actualiza
     const esNuevoPaso = paso.esNuevoPaso();
+
+    // Si no tiene descripcion y es nuevo entonces se elimina, si no es nuevo
+    // entonces descripcion seria igual a descripcionAnterior (que por defecto es '')
+    const descripcion = paso.descripcion()
+
+    if (!descripcion) {
+        paso.descripcion(paso.descripcionAnterior)
+
+        if (esNuevoPaso) {
+            tareaEditarVM.pasos.pop();
+        }
+    }
 
     if (esNuevoPaso) {
         await insertarNuevoPaso(data, idTarea, paso);
     } else {
-        // actualizar paso
+        await actualizarPaso(data, paso.id());
     }
 }
 
@@ -66,8 +81,28 @@ async function insertarNuevoPaso(data, idTarea, paso) {
         return;
     }
 
-    console.log(response)
     const pasoJson = await response.json();
 
     paso.id(pasoJson.id);
+}
+
+function manejarClickDescripcionPaso(paso) {
+
+    paso.modoEdicion(true);
+    $("[name=txtPasoDescripcion]:visible").focus();
+
+    paso.descripcionAnterior =  paso.descripcion();
+}
+
+async function actualizarPaso(data, id) {
+    const respuesta = await fetch(`${urlPasos}/${id}`, {
+        method: 'PUT',
+        body: data,
+        headers: {'Content-Type': 'application/json'}
+    })
+
+    if (!respuesta.ok) {
+        mostrarMensajeErrorAPI(respuesta);
+        return;
+    }
 }
