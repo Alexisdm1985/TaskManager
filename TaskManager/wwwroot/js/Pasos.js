@@ -118,3 +118,35 @@ function manejarClickCheckBoxPaso(paso) {
 
     return true;
 }
+
+function manejarEliminarPaso(paso) {
+    modalEditarTareaBootstrap.hide();
+
+    const dataModal = {
+        callBackConfirmar: () => {
+            eliminarPaso(paso) 
+        },
+        callBackCancelar: () => {
+            modalEditarTareaBootstrap.show();
+        },
+        titulo: `Segur@ de eliminar el paso?`
+    }
+
+    modalBorrarTarea(dataModal);
+}
+
+async function eliminarPaso(paso) {
+    const response = await fetch(`${urlPasos}/${paso.id()}`, {
+        method: 'DELETE'
+    })
+
+    if (!response.ok) {
+        mostrarMensajeErrorAPI(response);
+        return;
+    }
+
+    // Eliminar en memoria
+    tareaEditarVM.pasos.remove(function (item) {
+        return item.id() == paso.id();
+    })
+}

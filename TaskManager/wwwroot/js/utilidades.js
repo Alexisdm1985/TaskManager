@@ -25,7 +25,7 @@ function modalBorrarTarea({ callBackConfirmar, callBackCancelar, titulo }) {
     // dispara ciertas acciones
 
     swal({
-        title: `Esta segur@ de eliminar la tarea - ${titulo}`,
+        title: `${titulo}`,
         icon: 'warning',
         buttons: true,
         confirmButtonColor: '#3085d6',

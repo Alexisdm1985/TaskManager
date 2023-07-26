@@ -84,5 +84,30 @@ namespace TaskManager.Controllers
             await dbContext.SaveChangesAsync();
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> EliminarPaso(Guid id)
+        {
+            var usuarioId = servicioUsuarios.ObtenerIdUsuarioAutentificado();
+
+            var paso = await dbContext.PasoTareas
+                .Include(p => p.Tarea)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (paso is null)
+            {
+                return NotFound();
+            }
+
+            if (paso.Tarea.UsuarioCreadorId != usuarioId)
+            {
+                return Forbid();
+            }
+
+            dbContext.Remove(paso);
+            await dbContext.SaveChangesAsync();
+
+            return Ok();
+        }
     }
 }
