@@ -106,3 +106,15 @@ async function actualizarPaso(data, id) {
         return;
     }
 }
+
+function manejarClickCheckBoxPaso(paso) {
+
+    if (paso.esNuevoPaso()) {
+        return true;
+    }
+
+    const data = obtenerDataPeticionPaso(paso);
+    actualizarPaso(data, paso.id());
+
+    return true;
+}
