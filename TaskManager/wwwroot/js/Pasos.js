@@ -4,7 +4,7 @@
     const indice = tareaEditarVM.pasos().findIndex(paso => paso.esNuevoPaso());
 
     if (indice !== -1) {
-        return; 
+        return;
         // Si indice es distinto a -1 significa que encontro un paso nuevo
         // por lo que se aplica early return para no dejar crear un nuevo paso
     }
@@ -25,7 +25,7 @@ function manejarCancelarPaso(paso) {
         paso.modoEdicion(false);
         paso.descripcion(paso.descripcionAnterior);
     }
-    
+
 }
 
 async function manejarGuardarPaso(paso) {
@@ -34,7 +34,7 @@ async function manejarGuardarPaso(paso) {
 
     const idTarea = tareaEditarVM.id;
     const data = obtenerDataPeticionPaso(paso)
-    
+
     // Si no es nuevo entonces se actualiza
     const esNuevoPaso = paso.esNuevoPaso();
 
@@ -84,6 +84,15 @@ async function insertarNuevoPaso(data, idTarea, paso) {
     const pasoJson = await response.json();
 
     paso.id(pasoJson.id);
+
+    // Actualiza el resumen de pasos de la tarea
+    const tarea = obtenerTareaEnEdicion();
+
+    tarea.totalPasos(tarea.totalPasos() + 1);
+
+    if (paso.realizado()) {
+        tarea.pasosRealizados(tarea.pasosRealizados() + 1);
+    }
 }
 
 function manejarClickDescripcionPaso(paso) {
@@ -91,14 +100,14 @@ function manejarClickDescripcionPaso(paso) {
     paso.modoEdicion(true);
     $("[name=txtPasoDescripcion]:visible").focus();
 
-    paso.descripcionAnterior =  paso.descripcion();
+    paso.descripcionAnterior = paso.descripcion();
 }
 
 async function actualizarPaso(data, id) {
     const respuesta = await fetch(`${urlPasos}/${id}`, {
         method: 'PUT',
         body: data,
-        headers: {'Content-Type': 'application/json'}
+        headers: { 'Content-Type': 'application/json' }
     })
 
     if (!respuesta.ok) {
@@ -116,6 +125,19 @@ function manejarClickCheckBoxPaso(paso) {
     const data = obtenerDataPeticionPaso(paso);
     actualizarPaso(data, paso.id());
 
+    // Segun se este marcando/desmarcando el checkbox del paso
+    // se actualiza la informacion de cantidad de pasos realizados.
+    const tarea = obtenerTareaEnEdicion();
+    let pasosRealizadosActual = tarea.pasosRealizados();
+
+    if (paso.realizado()) {
+        pasosRealizadosActual++;
+    } else {
+        pasosRealizadosActual--;
+    }
+
+    tarea.pasosRealizados(pasosRealizadosActual);
+
     return true;
 }
 
@@ -124,7 +146,7 @@ function manejarEliminarPaso(paso) {
 
     const dataModal = {
         callBackConfirmar: () => {
-            eliminarPaso(paso) 
+            eliminarPaso(paso)
         },
         callBackCancelar: () => {
             modalEditarTareaBootstrap.show();
@@ -149,4 +171,13 @@ async function eliminarPaso(paso) {
     tareaEditarVM.pasos.remove(function (item) {
         return item.id() == paso.id();
     })
+
+    // Resta 1 a la cantidad de pasos totales
+    // y si el paso estaba realizado, entonces tambien se le resta 1
+    const tarea = obtenerTareaEnEdicion();
+    tarea.totalPasos(tarea.totalPasos() - 1);
+
+    if (paso.realizado()) {
+        tarea.pasosRealizados(tarea.pasosRealizados() - 1);
+    }
 }

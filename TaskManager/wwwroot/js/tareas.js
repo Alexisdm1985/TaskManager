@@ -64,7 +64,7 @@ async function ObtenerListaTareas() {
     json.forEach((tarea) => {
         listadoTareasViewModel.tareas.push(new fnTareaViewModel(tarea));
     })
-    
+
     listadoTareasViewModel.cargandoInfo(false);
 }
 
@@ -161,13 +161,13 @@ async function manejarClickTarea(tarea) {
     tareaEditarVM.descripcion(data.descripcion);
 
     tareaEditarVM.pasos([]);
-    
+
     data.pasoTareas.forEach(paso => {
         tareaEditarVM.pasos.push(
-            new pasosTareaVM({...paso, modoEdicion: false})
+            new pasosTareaVM({ ...paso, modoEdicion: false })
         )
     })
-    
+
     modalEditarTareaBootstrap.show();
 
 }
@@ -246,11 +246,16 @@ async function eliminarTarea(tarea) {
 
     // Eliminar la tarea en memoria
     // (Podemos volver a cargar la vista...pero para que xd, al parecer es mejor trabajar en memoria)
-    const indice = obtenterIndiceTarea(tarea.id);
-    
+    const indice = obtenterIndiceTareaEnEdicion();
+
     listadoTareasViewModel.tareas.splice(indice, 1);
 }
 
-function obtenterIndiceTarea(id) {
-    return listadoTareasViewModel.tareas().findIndex(t => t.id() === id);
+function obtenterIndiceTareaEnEdicion() {
+    return listadoTareasViewModel.tareas().findIndex(t => t.id() == tareaEditarVM.id);
+}
+
+function obtenerTareaEnEdicion() {
+    const indice = obtenterIndiceTareaEnEdicion();
+    return listadoTareasViewModel.tareas()[indice];
 }

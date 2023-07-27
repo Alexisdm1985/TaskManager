@@ -20,24 +20,17 @@
 
     <div id="contenedor-listado-tareas" class="text-center">
 
-
-        @*
-        "data-bind" proviene de Knockout JS, y nos permite usar codigo js
-        En este caso por cada tarea en el arreglo tareas creara un nuevo div
-        *@
         <div id="reordenable" class="text-start" data-bind="foreach: tareas">
 
             <div name="tarea" data-bind="click: manejarClickTarea" class="border mb-2 p-2" style="cursor: pointer" id="cardTarea">
-                @*
-                Con "text: titulo" decimos que buscamos la propiedad titulo en tareas, y
-                se imprimira en este div
-                *@
                 <div data-bind="text: titulo, hidden: esNuevaTarea" class="fw-bold"></div>
 
-                @*El valor del input sea el titulo de tareas.tarea[i].titulo
-                sera visible solo si la propiedad del modelo "esNuevaTarea" es true
-                Tendra un evento que al quitar el focus, acciona la funcion "manejarFocusOutTituloTarea"
-                (automaticamente se envia la tarea en cuestion como argumento)*@
+                <div name="pasos-resumen" data-bind="visible: totalPasos() > 0">
+                    <span data-bind="text: pasosRealizados"></span> /
+                    <span data-bind="text: totalPasos"></span>
+                    <span data-bind="text: porcentajeCompletado"></span>
+                </div>
+
                 <input type="text" name="titulo-tarea" autocomplete="off"
                        data-bind="value: titulo,
                         visible: esNuevaTarea,
@@ -97,7 +90,7 @@
             })
         }
 
-        function fnTareaViewModel({ id, titulo }) {
+        function fnTareaViewModel({ id, titulo, totalPasos, pasosRealizados }) {
             var self = this;
             self.id = ko.observable(id),
                 self.titulo = ko.observable(titulo),
@@ -106,6 +99,16 @@
                     // Si el id es 0 entonces corresponde a una nueva tarea
                     return self.id() == 0;
                 })
+
+            self.totalPasos = ko.observable(totalPasos);
+            self.pasosRealizados = ko.observable(pasosRealizados);
+            self.porcentajeCompletado = ko.pureComputed(function () {
+
+                // pasos realizados / total pasos * 100 basicamente
+                const calculo = Math.round(self.pasosRealizados() * 1.0 / self.totalPasos() * 100);
+
+                return `(${calculo}%)`;
+            })
         }
 
         const tareaEditarVM = {
@@ -119,7 +122,7 @@
         const listadoTareasViewModel = new fnListadoTareasViewModel();
 
         // Modelo para los pasos de la tarea
-        function pasosTareaVM({id, descripcion, realizado, modoEdicion}){
+        function pasosTareaVM({ id, descripcion, realizado, modoEdicion }) {
             var self = this;
             self.id = ko.observable(id || 0);
             self.descripcion = ko.observable(descripcion || '');
