@@ -181,3 +181,42 @@ async function eliminarPaso(paso) {
         tarea.pasosRealizados(tarea.pasosRealizados() - 1);
     }
 }
+
+// Codigo JqueryUI para reordenar los pasos
+async function actualizarOrdenPasos() {
+    const ids = obtenerIdsPasos();
+    await enviarIdsPasosAlBackend(ids);
+
+    const arregloOrganizadoEnMemoria = tareaEditarVM.pasos.sorted(function (a, b) {
+        return ids.indexOf(a.id().toString()) - ids.indexOf(b.id().toString());
+    });
+
+    tareaEditarVM.pasos(arregloOrganizadoEnMemoria);
+}
+
+function obtenerIdsPasos() {
+    const ids = $("[nane=chbPaso]").map(function () {
+        return $(this).attr('data-id');
+    }).get();
+
+    return ids;
+}
+
+async function enviarIdsPasosAlBackend(ids) {
+    const data = JSON.stringify(ids);
+
+    const respuesta = await fetch(`${urlPasos}/ordenar/${tareaEditarVM.id}`, {
+        method: 'POST',
+        body: data,
+        headers: { 'Content-Type': 'application/json' }
+    });
+}
+
+$(function () {
+    $("#reordenable-pasos").sortable({
+        axis: 'y',
+        stop: async function () {
+            await actualizarOrdenPasos();
+        }
+    })
+})

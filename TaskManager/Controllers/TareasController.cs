@@ -118,7 +118,7 @@ namespace TaskManager.Controllers
             var usuarioId = servicioUsuarios.ObtenerIdUsuarioAutentificado();
 
             var tarea = await dbContext.Tareas
-                .Include(tarea => tarea.PasoTareas)
+                .Include(tarea => tarea.PasoTareas.OrderBy(p => p.Orden))
                 .FirstOrDefaultAsync(t => t.UsuarioCreadorId == usuarioId && t.Id == id);
             if (tarea is null)
             {

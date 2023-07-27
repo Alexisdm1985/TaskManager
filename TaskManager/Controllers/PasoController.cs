@@ -109,5 +109,43 @@ namespace TaskManager.Controllers
 
             return Ok();
         }
+
+        // Ordena los pasos
+        [HttpPost("ordenar/{tareaId:int}")]
+        public async Task<IActionResult> OrdenarPasos(int tareaId, [FromBody] Guid[] ids)
+        {
+            var usuarioId = servicioUsuarios.ObtenerIdUsuarioAutentificado();
+
+            var tarea = await dbContext.Tareas.FirstOrDefaultAsync(t => t.Id == tareaId && t.UsuarioCreadorId == usuarioId);
+            if (tarea is null)
+            {
+                return NotFound();
+            }
+
+            // De aqui se obtiene los ids de los pasos de la tarea encontrada
+            var pasos = await dbContext.PasoTareas.Where(p => p.TareaId == tareaId).ToListAsync();
+            var pasosIds = pasos.Select(pasos => pasos.Id);
+
+            // Validacion: De los ids del front, retorname todos los que no esten en pasosIds.
+            var idsPasosNoPertenecenAUsuario = ids.Except(pasosIds).ToList();
+
+            if (idsPasosNoPertenecenAUsuario.Any())
+            {
+                return BadRequest("No todos los pasos estan presentes");
+            }
+
+            var pasosDiccionario = pasos.ToDictionary(p => p.Id);
+
+            for (int i = 0; i < ids.Length; i++)
+            {
+                var pasoId = ids[i];
+                var paso = pasosDiccionario[pasoId];
+
+                paso.Orden = i + 1;
+            }
+
+            await dbContext.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
