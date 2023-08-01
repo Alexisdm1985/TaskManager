@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "BkkUvIufy1oSG6Qc1i1h4aTmA4T+qrAgYHiYawLLAow=",
+  "Hash": "vSlQTk3NZLVqHS8rjlCY+kJAB81rUGfvmcqqGy2SZT0=",
   "Source": "TaskManager",
   "BasePath": "_content/TaskManager",
   "Mode": "Default",
@@ -168,6 +168,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\kirby-2.jpg"
+    },
+    {
+      "Identity": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\js\\archivos-adjuntos.js",
+      "SourceId": "TaskManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\",
+      "BasePath": "_content/TaskManager",
+      "RelativePath": "js/archivos-adjuntos.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\archivos-adjuntos.js"
     },
     {
       "Identity": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\js\\Pasos.js",

@@ -37,6 +37,10 @@
       "PackagePath": "staticwebassets\\js\\Pasos.js"
     },
     {
+      "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\js\\archivos-adjuntos.js",
+      "PackagePath": "staticwebassets\\js\\archivos-adjuntos.js"
+    },
+    {
       "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
