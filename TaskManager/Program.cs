@@ -88,6 +88,8 @@ builder.Services.AddLocalization(opciones =>
 
 builder.Services.AddTransient<IServicioUsuarios, ServicioUsuarios>();
 
+builder.Services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosAzure>();
+
 var app = builder.Build();
 ////// ------------------------------------------------------------------------------------------------------------------------
 

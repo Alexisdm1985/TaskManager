@@ -10,6 +10,8 @@ C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\en\TaskMan
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\es\TaskManager.resources.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Azure.Core.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Azure.Identity.dll
+C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Azure.Storage.Blobs.dll
+C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Azure.Storage.Common.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Humanizer.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.MicrosoftAccount.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\Microsoft.AspNetCore.Cryptography.Internal.dll
@@ -41,6 +43,7 @@ C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\System.Cod
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\System.Configuration.ConfigurationManager.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\System.Drawing.Common.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\System.IO.Hashing.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\System.Memory.Data.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\System.Runtime.Caching.dll
 C:\proyecto\tutorial-asp-net\TaskManager\TaskManager\bin\Debug\net7.0\System.Security.Cryptography.ProtectedData.dll
