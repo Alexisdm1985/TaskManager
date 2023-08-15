@@ -1,0 +1,57 @@
+# CHECK Sacar ejecutivco comercial de empresa y crear pestania ejecutivo otic. (copiar de Coordinador)
+esto en crear y editar cliente
+
+TAREAS:
+- Mirar NEO: en hito 4: MODULO A - CARGA DE DOTACION DE EMPLEADOS
+# CHECK--- Crear plantilla dotacion
+# CHECK--- Crear boton para descargar la plantilla
+# CHECK--- Crear boton para subir plantilla con informacion:
+# CHECK ----- Crear botón subir plantilla con informe por correo del estado de la carga y con generación de errores en un Excel y enviado por correo
+# CHECK--- Permitir editar empleado
+# CHECK?? ----- Validacion de tipos de datos y rangos permitidos(falta validar cantidad de decimales para porcentaje franquicia?, actualmente permite 5 numeros en total contando decimales)
+# CHECK --- revisar mensaje de exito que vuelve a aparecer al cambiar de empresa
+# CHECK --- validar datos comuna de ambos excels
+# CHECK --- CAMBIAR EL TITULO y datos DE LA PLANTILLA DE CORREO
+# CHECK ---- AGREGAR NIVEL OCUPACIONAL/EDUCACIONAL y ARREGLAR LAS COMUNAS DESDE COMUNAS Y PAISES, EN EL EXCEL PLANTILLA DOTACION 
+# CHECK --- MODIFICAR SP PARA AGREGAR VALIDACION "IDIOMA" a comunas  y paises ingresados y nombres
+--- Ver como se comporta al cargar varios empleados con el excel (probado con 100 filas pero con datos validos)
+--- Al Procesar mas de una vez un mismo empleado desde el excel, cuenta como mas de una persona procesada y no como la misma. esto se puede validar
+--- Buscador de empleado
+# CHECK --- Permitir borrado de empleado
+# CHECK --- Listado de empleado (CON PAGINACION)
+# CHECK --- Arreglo vista listadoDotacion 
+# CHECK --- ver el tema de donde aparece la pestania de la platnilla
+# CHECK --- Arreglar filtrado por region en editar empleado dotacion cliente
+# CHECK --- Cambiar representante otec de la plantilla xml a Estimado Ejecutivo Banotic
+
+CONSULTA: En los _detalle..cshtml, la parte del IdEmpresaHolding tiene que ir eso? porque con el nuevo cambio en listadoDotacionCliente, si seteamos el IdEmpresaHolding distinto a IdCliente, entonces en esa parte de la vista, siemrpre sera lo que haya en IdEmpresaHolding y nunca cambia aunque se seleccione otra empresa, ya que todos tienen el mismo IdEmpresaHolding.
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+anotar NEO:
+-- arreglo de bug en actividad economica
+-- Modificacion empresa holding ahora tendra estilo negrita
+-- Ejecutivo Otic ha sido removido de la seccion Empresa y se ha creado una seccion unica.
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+gestor-banotic@devits-webservice.com
+---------------------------------------------------------------------------------------------------------------------------------------------
+crear tabla empleadoCliente, tendra un id incremental
+(todos menos DV y rutempresa. excel sisges)
+
+
+foraneas: sexo
+nivel ocupacional y educacional 
+comuna
+pais
+IdCliente
+Estado
+
+Crear tabla Sexo: id incremental, sigla (F/M) y descripcion
+
+porc franquicia: id, porcentaje numeric?
+
+
+IMPORTANTE: MODIFICAR CAMPOS FOREANOS CON EL NOMBRE FK_NOMBRE
+

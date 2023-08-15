@@ -13,6 +13,30 @@
       "PackagePath": "staticwebassets\\Content\\sounds\\kirby-hi.mp3"
     },
     {
+      "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\archivosadjuntos\\87f89393-7d30-443c-9271-08d07582fa9c.txt",
+      "PackagePath": "staticwebassets\\archivosadjuntos\\87f89393-7d30-443c-9271-08d07582fa9c.txt"
+    },
+    {
+      "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\archivosadjuntos\\a8d9fbfb-df9f-4f44-9696-5757a026409e.jpg",
+      "PackagePath": "staticwebassets\\archivosadjuntos\\a8d9fbfb-df9f-4f44-9696-5757a026409e.jpg"
+    },
+    {
+      "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\archivosadjuntos\\abd613b8-a698-430d-9d05-f7443de4df9d.jpg",
+      "PackagePath": "staticwebassets\\archivosadjuntos\\abd613b8-a698-430d-9d05-f7443de4df9d.jpg"
+    },
+    {
+      "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\archivosadjuntos\\cfe57082-78e9-4cdb-b7ab-9bdd28a55d7d.jpg",
+      "PackagePath": "staticwebassets\\archivosadjuntos\\cfe57082-78e9-4cdb-b7ab-9bdd28a55d7d.jpg"
+    },
+    {
+      "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\archivosadjuntos\\e14bd623-1a99-4512-9665-f9f2b1be89ff.jpg",
+      "PackagePath": "staticwebassets\\archivosadjuntos\\e14bd623-1a99-4512-9665-f9f2b1be89ff.jpg"
+    },
+    {
+      "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\archivosadjuntos\\f8af2401-49b4-4fca-a5ae-82395dd1b9c7.jpg",
+      "PackagePath": "staticwebassets\\archivosadjuntos\\f8af2401-49b4-4fca-a5ae-82395dd1b9c7.jpg"
+    },
+    {
       "Id": "C:\\proyecto\\tutorial-asp-net\\TaskManager\\TaskManager\\wwwroot\\css\\custom.css",
       "PackagePath": "staticwebassets\\css\\custom.css"
     },

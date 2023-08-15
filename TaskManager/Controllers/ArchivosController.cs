@@ -51,6 +51,7 @@ namespace TaskManager.Controllers
                     .Select(a => a.Orden).MaxAsync();
             }
 
+            // Aqui almacena el archivo localmente
             var resultados = await almacenadorArchivos.Almacenar(contenedor, archivos);
 
             var archivosAdjuntos = resultados.Select((resultado, indice) => new ArchivoAdjunto
@@ -63,6 +64,8 @@ namespace TaskManager.Controllers
             });
 
             dbContext.AddRange(archivosAdjuntos);
+
+            // Almacena el archivo en la DB
             await dbContext.SaveChangesAsync();
 
             return archivosAdjuntos.ToList();

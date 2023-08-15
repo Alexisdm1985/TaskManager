@@ -90,7 +90,7 @@ builder.Services.AddTransient<IServicioUsuarios, ServicioUsuarios>();
 
 // Servicios para manejo de archivos en Azure y Local
 builder.Services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosAzure>();
-builder.Services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosLocal>();
+//builder.Services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosLocal>();
 
 
 var app = builder.Build();

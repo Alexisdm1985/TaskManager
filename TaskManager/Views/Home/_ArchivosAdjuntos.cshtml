@@ -2,7 +2,8 @@
 <button onclick="manejarClickAgregarArchivoAdjunto()">
     <i class="bi bi-plus"></i>
 </button>
-<input type="file" id="archivoATarea" multiple style="display: none" />
+<input type="file" id="archivoATarea" multiple style="display: none"
+       onchange="manejarOnChangeArchivosAdjuntos(event)" />
 
 <div data-bind="foreach: archivosAdjuntos">
     <div>
